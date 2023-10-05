@@ -1,0 +1,38 @@
+.boardContainer {
+	max-width: 300px;
+	min-height: 400px;
+	display: grid;
+
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	grid-template-areas:
+		"clear clear divide multiply"
+		"seven eight nine subtract"
+		"four five six add"
+		"one two three equals"
+		"zero zero decimal equals";
+}
+.button {
+	cursor: pointer;
+	border-radius: 0;
+	border: none;
+}
+#equals {
+	background-color: var(--equals-color);
+	color: white;
+}
+#clear {
+	background-color: var(--clear-color);
+	color: white;
+}
+#display {
+	background-color: darkolivegreen;
+}
+#calculator {
+	min-width: 300px;
+}
+.App {
+	height: 100vh;
+	display: grid;
+	place-content: center;
+}

@@ -1,40 +1,58 @@
 import { buttons } from "./data/calulatorButtons";
-import "./App.css";
 import { useState } from "react";
 import { evaluate } from "mathjs";
+import "./App.css";
 
-const OPERATIONS = ["/", "*", "+", "."];
+const OPERATIONS = ["/", "*", "+"];
 
 function App() {
 	const [expression, setExpression] = useState("");
 
-	const handleClick = (id: string, value: string) => {
-		if (id === "equals") setExpression(evaluate(expression).toString());
-		else if (id === "clear") {
-			setExpression("");
-		} else handleDisplayChange(value);
-	};
+	const handleClick = (value: string) => {
+		const splittedExp = expression.split(/([-+*/])/);
+		const lastFromSplitted = splittedExp[splittedExp.length - 1];
+		const lastLetter = expression.slice(-1);
 
-	const handleDisplayChange = (value: string) => {
-		if (
-			(OPERATIONS.includes(value) && expression === "") ||
-			(OPERATIONS.includes(value) && OPERATIONS.includes(expression.slice(-1))) ||
-			(value === "0" && expression === "")
-		)
-			return;
+		switch (value) {
+			case "=":
+				setExpression(evaluate(expression).toString());
+				break;
+			case "AC":
+				setExpression("");
+				break;
 
-		setExpression(expression + value);
+			case ".":
+				if (!lastFromSplitted.includes(".")) {
+					if (Number.isNaN(Number(lastLetter)) || expression.length === 0) {
+						setExpression(expression + "0" + value);
+					} else setExpression(expression + value);
+				}
+				break;
+			default:
+				if (OPERATIONS.includes(value) && OPERATIONS.includes(lastLetter)) {
+					setExpression(expression.slice(0, -1) + value);
+					return;
+				} else if (
+					(OPERATIONS.includes(value) && expression === "") ||
+					(value === "0" && expression === "")
+				) {
+					return;
+				}
+				setExpression(expression + value);
+		}
 	};
 
 	return (
 		<div className="App">
 			<div id="calculator">
-				<div id="display">{expression || "0"}</div>
+				<div className="display-container">
+					<p id="display">{expression || "0"}</p>
+				</div>
 				<div className="boardContainer">
-					{buttons.map(({ id, value }) => (
+					{buttons.map(({ id, value, isOperation }) => (
 						<button
-							className="button"
-							onClick={() => handleClick(id, value)}
+							className={`button ${isOperation ? "operation" : ""} `}
+							onClick={() => handleClick(value)}
 							key={id}
 							type="button"
 							id={id}

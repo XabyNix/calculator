@@ -46,18 +46,22 @@ export const buttons = [
 	{
 		id: "add",
 		value: "+",
+		isOperation: true,
 	},
 	{
 		id: "subtract",
 		value: "-",
+		isOperation: true,
 	},
 	{
 		id: "multiply",
 		value: "*",
+		isOperation: true,
 	},
 	{
 		id: "divide",
 		value: "/",
+		isOperation: true,
 	},
 	{
 		id: "equals",

@@ -7,8 +7,18 @@
 	color: rgba(255, 255, 255, 0.87);
 	background-color: #272727;
 
-	--equals-color: darkblue;
-	--clear-color: darkred;
+	--equals-color: #c6eeff;
+	--equals-hover-color: #e8f9ff;
+
+	--clear-color: #b71c1c;
+	--clear-hover-color: #d32f2f;
+
+	--operation-color: #00796b;
+	--operation-hover-color: #009688;
+
+	--main-color: #2c3e50;
+	--main-hover: #4a647c;
+	--secondary-color: #34495e;
 }
 * {
 	font-size: 1.1rem;

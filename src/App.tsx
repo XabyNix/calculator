@@ -3,7 +3,7 @@ import { useState } from "react";
 import { evaluate } from "mathjs";
 import "./App.css";
 
-const OPERATIONS = ["/", "*", "+"];
+const OPERATIONS = ["/", "*", "+", "-"];
 
 function App() {
 	const [expression, setExpression] = useState("");
@@ -12,6 +12,14 @@ function App() {
 		const splittedExp = expression.split(/([-+*/])/);
 		const lastFromSplitted = splittedExp[splittedExp.length - 1];
 		const lastLetter = expression.slice(-1);
+
+		/* 
+		
+		5*-+5 = 10
+		5*-5 = -25
+
+		
+		*/
 
 		switch (value) {
 			case "=":
@@ -28,6 +36,7 @@ function App() {
 					} else setExpression(expression + value);
 				}
 				break;
+
 			default:
 				if (OPERATIONS.includes(value) && OPERATIONS.includes(lastLetter)) {
 					setExpression(expression.slice(0, -1) + value);

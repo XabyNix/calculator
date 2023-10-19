@@ -1,4 +1,4 @@
-import { buttons } from "./data/calulatorButtons";
+import { buttons, operations } from "./data/calulatorButtons";
 import { useState } from "react";
 import { evaluate } from "mathjs";
 import "./App.css";
@@ -12,14 +12,6 @@ function App() {
 		const splittedExp = expression.split(/([-+*/])/);
 		const lastFromSplitted = splittedExp[splittedExp.length - 1];
 		const lastLetter = expression.slice(-1);
-
-		/* 
-		
-		5*-+5 = 10
-		5*-5 = -25
-
-		
-		*/
 
 		switch (value) {
 			case "=":
@@ -36,7 +28,11 @@ function App() {
 					} else setExpression(expression + value);
 				}
 				break;
-
+			case "cos":
+			case "sin":
+			case "log":
+				setExpression(expression + value + "(");
+				break;
 			default:
 				if (OPERATIONS.includes(value) && OPERATIONS.includes(lastLetter)) {
 					setExpression(expression.slice(0, -1) + value);
@@ -58,17 +54,32 @@ function App() {
 					<p id="display">{expression || "0"}</p>
 				</div>
 				<div className="boardContainer">
-					{buttons.map(({ id, value, isOperation }) => (
+					<div className="numbersContainer">
+						{buttons.map(({ id, value }) => (
+							<button
+								className="btn"
+								onClick={() => handleClick(value)}
+								key={value}
+								type="button"
+								id={id}
+								style={{ gridArea: id }}
+							>
+								{value}
+							</button>
+						))}
+					</div>
+					{operations.map(({ id, value }) => (
 						<button
-							className={`button ${isOperation ? "operation" : ""} `}
-							onClick={() => handleClick(value)}
-							key={id}
-							type="button"
 							id={id}
+							onClick={() => handleClick(value)}
+							className="btn operation"
 							style={{ gridArea: id }}
 						>
 							{value}
 						</button>
+
+						//ora ho base e
+						//cotangente tangente radice quadrata radice ennesima log base n
 					))}
 				</div>
 			</div>

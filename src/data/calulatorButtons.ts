@@ -40,29 +40,17 @@ export const buttons = [
 		value: "9",
 	},
 	{
-		id: "decimal",
+		id: "dec",
 		value: ".",
 	},
+
 	{
-		id: "add",
-		value: "+",
-		isOperation: true,
+		id: "pigreco",
+		value: "pi",
 	},
-	{
-		id: "subtract",
-		value: "-",
-		isOperation: true,
-	},
-	{
-		id: "multiply",
-		value: "*",
-		isOperation: true,
-	},
-	{
-		id: "divide",
-		value: "/",
-		isOperation: true,
-	},
+];
+
+export const operations = [
 	{
 		id: "equals",
 		value: "=",
@@ -71,6 +59,48 @@ export const buttons = [
 		id: "clear",
 		value: "AC",
 	},
+	{
+		id: "add",
+		value: "+",
+	},
+	{
+		id: "sub",
+		value: "-",
+	},
+	{
+		id: "mul",
+		value: "*",
+	},
+	{
+		id: "div",
+		value: "/",
+	},
+	{
+		id: "perc",
+		value: "%",
+	},
+	{
+		id: "sin",
+		value: "sin",
+	},
+	{
+		id: "cos",
+		value: "cos",
+	},
+	{
+		id: "log",
+		value: "log",
+	},
+	{
+		id: "expo",
+		value: "^",
+	},
+	{
+		id: "openBraket",
+		value: "(",
+	},
+	{
+		id: "closeBraket",
+		value: ")",
+	},
 ];
-
-export type Tbutton = (typeof buttons)[0];

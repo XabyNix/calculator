@@ -2,16 +2,29 @@
 	display: grid;
 	flex: 0 1 350px;
 	gap: 5px;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(5, 1fr);
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(6, 1fr);
 	grid-template-areas:
-		"clear clear divide multiply"
-		"seven eight nine subtract"
-		"four five six add"
-		"one two three equals"
-		"zero zero decimal equals";
+		"log	cos 	sin		openBraket	closeBraket"
+		"clear expo		perc 	div		mul"
+		"numbers	 numbers	 numbers	 numbers	 sub"
+		"numbers	 numbers	 numbers	 numbers	 add"
+		"numbers	 numbers	 numbers	 numbers	 equals"
+		"numbers	 numbers	 numbers	 numbers	 equals";
 }
-.button {
+.numbersContainer {
+	grid-area: numbers;
+	display: grid;
+	gap: 5px;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	grid-template-areas:
+		"seven eight nine"
+		"four five six"
+		"one two three"
+		"pigreco zero dec";
+}
+.btn {
 	font-size: 1.7rem;
 	background-color: var(--main-color);
 	cursor: pointer;
@@ -50,7 +63,7 @@
 	margin: 0;
 	width: inherit;
 
-	font-size: 4rem;
+	font-size: 3rem;
 	word-break: break-all;
 	text-align: end;
 	vertical-align: bottom;

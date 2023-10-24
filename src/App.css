@@ -2,15 +2,16 @@
 	display: grid;
 	flex: 0 1 350px;
 	gap: 5px;
-	grid-template-columns: repeat(5, 1fr);
-	grid-template-rows: repeat(6, 1fr);
+	grid-template-columns: repeat(6, 1fr);
+	grid-template-rows: repeat(7, 1fr);
 	grid-template-areas:
-		"log	cos 	sin		openBraket	closeBraket"
-		"clear expo		perc 	div		mul"
-		"numbers	 numbers	 numbers	 numbers	 sub"
-		"numbers	 numbers	 numbers	 numbers	 add"
-		"numbers	 numbers	 numbers	 numbers	 equals"
-		"numbers	 numbers	 numbers	 numbers	 equals";
+		"sqrt deg . . . ."
+		"tan	log		cos 	sin		openBraket		closeBraket"
+		"cot	clear	expo	perc 	div		mul"
+		"numbers		numbers	 numbers	 numbers	 numbers	 sub"
+		"numbers		numbers	 numbers	 numbers	 numbers	 add"
+		"numbers		numbers	 numbers	 numbers	 numbers	 equals"
+		"numbers		numbers	 numbers	 numbers	 numbers	 equals";
 }
 .numbersContainer {
 	grid-area: numbers;
@@ -50,23 +51,25 @@
 	}
 }
 .display-container {
-	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	text-align: end;
 	flex: 1 0 70px;
 	padding: 25px 5px;
 	background-color: var(--main-color);
 	border-radius: 5px;
 }
 #display {
-	position: relative;
-	top: 100%;
 	transform: translateY(-100%);
 	margin: 0;
 	width: inherit;
-
-	font-size: 3rem;
+	font-size: 1.5rem;
 	word-break: break-all;
-	text-align: end;
 	vertical-align: bottom;
+}
+#resultDisplay {
+	font-size: 2rem;
 }
 #calculator {
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
@@ -86,9 +89,13 @@
 }
 
 .operation {
-	background: var(--operation-color);
+	background: var(--operation-main);
 	&:hover {
-		background-color: var(--operation-hover-color);
+		background-color: var(--operation-light);
+	}
+	&.pressed {
+		outline: 2px solid whitesmoke;
+		background-color: var(--operation-dark);
 	}
 }
 .App {

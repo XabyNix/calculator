@@ -1,49 +1,58 @@
 import { buttons, operations } from "./data/calulatorButtons";
-import { useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { evaluate } from "mathjs";
 import "./App.css";
 
-const OPERATIONS = ["/", "*", "+", "-"];
-
+/* const OPERATIONS = ["/", "*", "+", "-", "^", "%"];
+ */
 function App() {
 	const [expression, setExpression] = useState("");
+	const [display, setDisplay] = useState("");
+	const [equals, setEqual] = useState(false);
+	const [degActivate, setDegActivate] = useState(false);
 
-	const handleClick = (value: string) => {
-		const splittedExp = expression.split(/([-+*/])/);
-		const lastFromSplitted = splittedExp[splittedExp.length - 1];
-		const lastLetter = expression.slice(-1);
+	useEffect(() => {
+		equals && setDisplay(evaluate(expression));
+		setEqual(false);
+	}, [equals]);
 
+	function changeArgument() {
+		const findArgsRegex = /(?<=[sin|cos|tan|cot]\()\d*(?=\))/gi;
+
+		setExpression(expression.replace(findArgsRegex, "$& deg"));
+		setEqual(true);
+	}
+	function isLastAnOperator(stringToCheck: string) {
+		const operatorsRegex = /[+-/*]$/;
+		return operatorsRegex.test(stringToCheck);
+	}
+	const handleClick = (value: string, e?: MouseEvent<HTMLButtonElement>) => {
 		switch (value) {
-			case "=":
-				setExpression(evaluate(expression).toString());
+			case "sin":
+			case "cos":
+			case "tan":
+			case "cot":
+			case "sqrt":
+			case "log":
+				setExpression(expression + value + "(");
+
 				break;
 			case "AC":
 				setExpression("");
+				setDisplay("");
 				break;
-
-			case ".":
-				if (!lastFromSplitted.includes(".")) {
-					if (Number.isNaN(Number(lastLetter)) || expression.length === 0) {
-						setExpression(expression + "0" + value);
-					} else setExpression(expression + value);
-				}
+			case "deg":
+				setDegActivate(!degActivate);
+				e.currentTarget.classList.toggle("pressed");
 				break;
-			case "cos":
-			case "sin":
-			case "log":
-				setExpression(expression + value + "(");
+			case "=":
+				degActivate ? changeArgument() : setEqual(true);
 				break;
 			default:
-				if (OPERATIONS.includes(value) && OPERATIONS.includes(lastLetter)) {
-					setExpression(expression.slice(0, -1) + value);
-					return;
-				} else if (
-					(OPERATIONS.includes(value) && expression === "") ||
-					(value === "0" && expression === "")
-				) {
-					return;
-				}
-				setExpression(expression + value);
+				if (isLastAnOperator(expression) && isLastAnOperator(value)) {
+					setExpression(expression.replace(/.$/, value));
+				} else setExpression(expression + value);
+				break;
 		}
 	};
 
@@ -52,6 +61,7 @@ function App() {
 			<div id="calculator">
 				<div className="display-container">
 					<p id="display">{expression || "0"}</p>
+					<p id="resultDisplay">{display || "0"}</p>
 				</div>
 				<div className="boardContainer">
 					<div className="numbersContainer">
@@ -70,8 +80,9 @@ function App() {
 					</div>
 					{operations.map(({ id, value }) => (
 						<button
+							key={id}
 							id={id}
-							onClick={() => handleClick(value)}
+							onClick={(e) => handleClick(value, e)}
 							className="btn operation"
 							style={{ gridArea: id }}
 						>

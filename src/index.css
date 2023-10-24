@@ -13,8 +13,9 @@
 	--clear-color: #b71c1c;
 	--clear-hover-color: #d32f2f;
 
-	--operation-color: #00796b;
-	--operation-hover-color: #009688;
+	--operation-dark: #005e53;
+	--operation-main: #00796b;
+	--operation-light: #009688;
 
 	--main-color: #2c3e50;
 	--main-hover: #4a647c;

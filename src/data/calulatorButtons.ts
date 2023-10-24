@@ -52,6 +52,10 @@ export const buttons = [
 
 export const operations = [
 	{
+		id: "deg",
+		value: "deg",
+	},
+	{
 		id: "equals",
 		value: "=",
 	},
@@ -90,6 +94,18 @@ export const operations = [
 	{
 		id: "log",
 		value: "log",
+	},
+	{
+		id: "tan",
+		value: "tan",
+	},
+	{
+		id: "cot",
+		value: "cot",
+	},
+	{
+		id: "sqrt",
+		value: "sqrt",
 	},
 	{
 		id: "expo",

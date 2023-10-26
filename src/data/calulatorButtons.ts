@@ -60,6 +60,10 @@ export const operations = [
 		value: "=",
 	},
 	{
+		id: "lastClear",
+		value: "C",
+	},
+	{
 		id: "clear",
 		value: "AC",
 	},

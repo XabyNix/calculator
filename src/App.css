@@ -5,9 +5,9 @@
 	grid-template-columns: repeat(6, 1fr);
 	grid-template-rows: repeat(7, 1fr);
 	grid-template-areas:
-		"sqrt deg . . . ."
+		"deg . . . lastClear clear"
 		"tan	log		cos 	sin		openBraket		closeBraket"
-		"cot	clear	expo	perc 	div		mul"
+		"cot	sqrt	expo	perc 	div		mul"
 		"numbers		numbers	 numbers	 numbers	 numbers	 sub"
 		"numbers		numbers	 numbers	 numbers	 numbers	 add"
 		"numbers		numbers	 numbers	 numbers	 numbers	 equals"
@@ -49,6 +49,10 @@
 	&:hover {
 		background-color: var(--clear-hover-color);
 	}
+}
+#lastClear {
+	background-color: var(--last-clear);
+	color: black;
 }
 .display-container {
 	display: flex;

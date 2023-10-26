@@ -3,29 +3,33 @@ import { MouseEvent, useEffect, useState } from "react";
 import { evaluate } from "mathjs";
 import "./App.css";
 
-/* const OPERATIONS = ["/", "*", "+", "-", "^", "%"];
- */
 function App() {
 	const [expression, setExpression] = useState("");
-	const [display, setDisplay] = useState("");
+	const [displayInput, setDisplayInput] = useState("");
+	const [result, setResult] = useState("");
+
 	const [equals, setEqual] = useState(false);
 	const [degActivate, setDegActivate] = useState(false);
 
 	useEffect(() => {
-		equals && setDisplay(evaluate(expression));
-		setEqual(false);
-	}, [equals]);
+		if (equals) {
+			setResult(evaluate(expression));
+			setEqual(false);
+		} else setDisplayInput(expression);
+	}, [equals, expression]);
 
 	function changeArgument() {
-		const findArgsRegex = /(?<=[sin|cos|tan|cot]\()\d*(?=\))/gi;
+		//const findArgsRegex = /(?<=[sin|cos|tan|cot]\()\d*(?=\))/gi;
 
-		setExpression(expression.replace(findArgsRegex, "$& deg"));
-		setEqual(true);
+		const findArgsRegex = /\)/gi;
+		setExpression(expression.replace(findArgsRegex, " deg)"));
 	}
+
 	function isLastAnOperator(stringToCheck: string) {
 		const operatorsRegex = /[+-/*]$/;
 		return operatorsRegex.test(stringToCheck);
 	}
+
 	const handleClick = (value: string, e?: MouseEvent<HTMLButtonElement>) => {
 		switch (value) {
 			case "sin":
@@ -39,14 +43,21 @@ function App() {
 				break;
 			case "AC":
 				setExpression("");
-				setDisplay("");
+				setResult("");
 				break;
 			case "deg":
 				setDegActivate(!degActivate);
-				e.currentTarget.classList.toggle("pressed");
+				e!.currentTarget.classList.toggle("pressed");
 				break;
 			case "=":
-				degActivate ? changeArgument() : setEqual(true);
+				setEqual(true);
+				degActivate && changeArgument();
+				break;
+			case ".":
+				/\d$/.test(expression)
+					? setExpression(expression + value)
+					: setExpression(expression + "0" + value);
+
 				break;
 			default:
 				if (isLastAnOperator(expression) && isLastAnOperator(value)) {
@@ -60,8 +71,8 @@ function App() {
 		<div className="App">
 			<div id="calculator">
 				<div className="display-container">
-					<p id="display">{expression || "0"}</p>
-					<p id="resultDisplay">{display || "0"}</p>
+					<p id="display">{displayInput}</p>
+					<p id="resultDisplay">{result || "0"}</p>
 				</div>
 				<div className="boardContainer">
 					<div className="numbersContainer">
@@ -88,9 +99,6 @@ function App() {
 						>
 							{value}
 						</button>
-
-						//ora ho base e
-						//cotangente tangente radice quadrata radice ennesima log base n
 					))}
 				</div>
 			</div>

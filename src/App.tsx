@@ -45,6 +45,10 @@ function App() {
 				setExpression("");
 				setResult("");
 				break;
+			case "C":
+				console.log(expression);
+				expression.length > 0 && setExpression(expression.replace(/.$/gi, ""));
+				break;
 			case "deg":
 				setDegActivate(!degActivate);
 				e!.currentTarget.classList.toggle("pressed");
